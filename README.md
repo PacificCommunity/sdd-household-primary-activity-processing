@@ -1,10 +1,10 @@
-# PDH SDD GitHub's template
+# SDD - HIES Household economic activity processing
 
-A general template for SDD/PDH projects, incorporating some good practices for github based development.
+## Usage
 
-# Usage
+The R scripts in this project is used on processing HIES household primary economic activity involvement. The data file is supplied by the Data Collection team.
 
-To use this template create a new repository using this repository as a template. See in the top right corner of this page the green button "Use this template". Click on it and follow the instructions. This will create a new repository with the same structure as this one. Then clone the new repository to your local machine and start working on your project.
+Any future updates will be processed using the script.
 
 # Folder structure
 
@@ -16,4 +16,4 @@ There are four main folders in this repository:
 
 # gitignore
 
-The `.gitignore` file is configured to ignore the most common development temporary files for Python, R, and Stata. It also ignore most file formats in the `/temp/` subdirectories.
+The `.gitignore` file is configured to ignore the most common development temporary files for Python, R, and Stata. It also ignore most file formats in the `/temp/` sub directories.
