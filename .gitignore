@@ -24,6 +24,7 @@ raw_data/*.xlsx
 raw_data/*.zip
 raw_data/*.json
 raw_data/*.xml
+raw_data/*.dta
 
 # Session Data files
 .RData
