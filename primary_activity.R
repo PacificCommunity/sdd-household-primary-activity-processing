@@ -100,6 +100,7 @@ pActivity_HH_cube <- pActivity_HH_cube %>%
   filter(!is.na(year)) %>%
   rename(households = V1)
 
+
 pActivity_HH_cube <- pActivity_HH_cube %>%
   mutate_all(~replace(., is.na(.), "_T")) %>%
   filter(rururbCode != "N")
