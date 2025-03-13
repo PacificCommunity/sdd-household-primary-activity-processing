@@ -6,6 +6,88 @@ setwd(repository)
 
 source("src/setup.R")
 
+#Creating Fishing location column
+
+fishing <- pActivity
+
+fishing <- fishing |>
+  filter(fisheries == 1) |>
+  mutate(fishing_location = case_when(
+    fishloc_inshore==1 & fishloc_nearshore ==1 & fishloc_offshore ==1 & fishloc_other == 1 ~ "ALLLOC",
+    
+    fishloc_inshore==1 & fishloc_nearshore ==1 & fishloc_offshore ==1 & is.na(fishloc_other) ~ "ALLXOT",
+    fishloc_inshore==1 & fishloc_nearshore ==1 & is.na(fishloc_offshore)  & fishloc_other == 1 ~ "ALLXOF",
+    fishloc_inshore==1 & is.na(fishloc_nearshore)  & fishloc_offshore ==1 & fishloc_other == 1 ~ "ALLXNR",
+    is.na(fishloc_inshore) & fishloc_nearshore ==1 & fishloc_offshore ==1 & fishloc_other == 1 ~ "ALLXIN",
+    
+    fishloc_inshore==1 & is.na(fishloc_nearshore) & is.na(fishloc_offshore) & is.na(fishloc_other) ~ "INONLY",
+    is.na(fishloc_inshore) & fishloc_nearshore ==1 & is.na(fishloc_offshore) & is.na(fishloc_other) ~ "NRONLY",
+    is.na(fishloc_inshore) & is.na(fishloc_nearshore) & fishloc_offshore ==1 & is.na(fishloc_other) ~ "OFONLY",
+    is.na(fishloc_inshore) & is.na(fishloc_nearshore) & is.na(fishloc_offshore) & fishloc_other == 1 ~ "OTONLY",
+    
+    fishloc_inshore == 1 & fishloc_nearshore == 1 & is.na(fishloc_offshore) & is.na(fishloc_other) ~ "INNRONLY",
+    fishloc_inshore == 1 & is.na(fishloc_nearshore) & fishloc_offshore==1 & is.na(fishloc_other) ~ "INOFONLY",
+    fishloc_inshore == 1 & is.na(fishloc_nearshore) & is.na(fishloc_offshore) & fishloc_other ==1 ~ "INOTONLY",
+    
+    is.na(fishloc_inshore)  & fishloc_nearshore == 1 & fishloc_offshore==1 & is.na(fishloc_other) ~ "NROFONLY",
+    is.na(fishloc_inshore)  & fishloc_nearshore ==1 & is.na(fishloc_offshore) & fishloc_other == 1 ~ "NROTONLY",
+    
+    is.na(fishloc_inshore)  & is.na(fishloc_nearshore) & fishloc_offshore==1 & fishloc_other ==1 ~ "OFOTONLY",
+    
+    is.na(fishloc_inshore) & is.na(fishloc_nearshore) & is.na(fishloc_offshore)  & is.na(fishloc_other) ~ "NSTD"
+    
+    ),
+    
+    fishing_method = case_when(
+      fishmethod_gleaning ==1 & fishmethod_line ==1 & fishmethod_net ==1 & fishmethod_spear ==1 & fishmethod_other ==1 ~ "ALLMTH",
+      
+      fishmethod_gleaning ==1 & fishmethod_line ==1 & fishmethod_net ==1 & fishmethod_spear ==1 & is.na(fishmethod_other) ~ "ALLXOT",
+      fishmethod_gleaning ==1 & fishmethod_line ==1 & fishmethod_net ==1 & is.na(fishmethod_spear) & fishmethod_other ==1 ~ "ALLXSP",
+      fishmethod_gleaning ==1 & fishmethod_line ==1 & is.na(fishmethod_net) & fishmethod_spear ==1 & fishmethod_other ==1 ~ "ALLXNT",
+      fishmethod_gleaning ==1 & is.na(fishmethod_line) & fishmethod_net==1 & fishmethod_spear ==1 & fishmethod_other ==1 ~ "ALLXLN",
+      is.na(fishmethod_gleaning) & fishmethod_line ==1 & fishmethod_net==1 & fishmethod_spear ==1 & fishmethod_other ==1 ~ "ALLXGL",
+      
+      fishmethod_gleaning ==1 & is.na(fishmethod_line) & is.na(fishmethod_net) & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "GLONLY",
+      is.na(fishmethod_gleaning) & fishmethod_line ==1 & is.na(fishmethod_net) & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "LNONLY",
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & fishmethod_net==1 & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "NTONLY",
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & is.na(fishmethod_net) & fishmethod_spear ==1 & is.na(fishmethod_other) ~ "SPONLY",
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & is.na(fishmethod_net) & is.na(fishmethod_spear) & fishmethod_other ==1 ~ "OTONLY",
+      
+      fishmethod_gleaning==1 & fishmethod_line ==1 & is.na(fishmethod_net) & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "GLLNONLY",
+      fishmethod_gleaning==1 & is.na(fishmethod_line) & fishmethod_net==1 & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "GLNTONLY",
+      fishmethod_gleaning==1 & is.na(fishmethod_line) & is.na(fishmethod_net) & fishmethod_spear==1 & is.na(fishmethod_other) ~ "GLSPONLY",
+      fishmethod_gleaning==1 & is.na(fishmethod_line) & is.na(fishmethod_net) & is.na(fishmethod_spear) & fishmethod_other==1 ~ "GLOTONLY",
+      
+      is.na(fishmethod_gleaning) & fishmethod_line ==1 & fishmethod_net==1 & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "LNNTONLY",
+      is.na(fishmethod_gleaning) & fishmethod_line ==1 & is.na(fishmethod_net) & fishmethod_spear==1 & is.na(fishmethod_other) ~ "LNSPONLY",
+      is.na(fishmethod_gleaning) & fishmethod_line ==1 & is.na(fishmethod_net) & is.na(fishmethod_spear) & fishmethod_other==1 ~ "LNOTONLY",
+      
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & fishmethod_net==1 & fishmethod_spear==1 & is.na(fishmethod_other) ~ "NTSPONLY",
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & fishmethod_net==1 & is.na(fishmethod_spear) & fishmethod_other==1 ~ "NTOTONLY",
+      
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & is.na(fishmethod_net) & fishmethod_spear==1 & fishmethod_other==1 ~ "SPOTONLY",
+      
+      fishmethod_gleaning==1 & fishmethod_line==1 & fishmethod_net==1 & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "GLLNNTONLY",
+      fishmethod_gleaning==1 & is.na(fishmethod_line) & fishmethod_net==1 & fishmethod_spear==1 & is.na(fishmethod_other) ~ "GLNTSPONLY",
+      fishmethod_gleaning==1 & is.na(fishmethod_line) & is.na(fishmethod_net) & fishmethod_spear==1 & fishmethod_other==1 ~ "GLSPOTONLY",
+      
+      is.na(fishmethod_gleaning) & fishmethod_line==1 & fishmethod_net==1 & fishmethod_spear==1 & is.na(fishmethod_other) ~ "LNNTSPONLY",
+      is.na(fishmethod_gleaning) & fishmethod_line==1 & is.na(fishmethod_net) & fishmethod_spear==1 & fishmethod_other==1 ~ "LNSPOTONLY",
+      
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & fishmethod_net==1 & fishmethod_spear==1 & fishmethod_other==1 ~ "NTSPOTONLY",
+      
+      fishmethod_gleaning==1 & fishmethod_line==1 & is.na(fishmethod_net) & fishmethod_spear==1 & is.na(fishmethod_other) ~ "GLLNSPONLY",
+      fishmethod_gleaning==1 & is.na(fishmethod_line) & fishmethod_net==1 & is.na(fishmethod_spear) & fishmethod_other==1 ~ "GLNTOTONLY",
+      fishmethod_gleaning==1 & fishmethod_line==1 & is.na(fishmethod_net) & is.na(fishmethod_spear) & fishmethod_other==1 ~ "GLLNOTONLY",
+      is.na(fishmethod_gleaning) & fishmethod_line==1 & fishmethod_net==1 & is.na(fishmethod_spear) & fishmethod_other==1 ~ "LNNTOTONLY",
+      
+      is.na(fishmethod_gleaning) & is.na(fishmethod_line) & is.na(fishmethod_net) & is.na(fishmethod_spear) & is.na(fishmethod_other) ~ "NSTD"
+
+          )
+    
+    )
+
+
 #### ******************************* Household number processing **************************** ####
 #country household processing
 pActivity_HH <- pActivity %>%
@@ -28,7 +110,7 @@ pActivity_HH_cube <- pActivity_HH_cube %>%
 
 pActivity_HH_cube_DT <- pActivity_HH_cube %>%
   rename(GEO_PICT=countryCode, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households) %>%
-  mutate(FREQ = "A", INDICATOR = "NHH", FOOD_ACTIVITY = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+  mutate(FREQ = "A", INDICATOR = "NHH", FISHING_ACTIVITY = "_T", FISHING_LOCATION = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
 
 #Strata household processing
 
@@ -52,9 +134,67 @@ pActivity_strata_HH_cube <- pActivity_strata_HH_cube %>%
 
 pActivity_strata_HH_cube_DT <- pActivity_strata_HH_cube %>%
   rename(GEO_PICT=strataID, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households) %>%
-  mutate(FREQ = "A", INDICATOR = "NHH", FOOD_ACTIVITY = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+  mutate(FREQ = "A", INDICATOR = "NHH", FISHING_ACTIVITY = "_T", FISHING_LOCATION = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+
+#Combine household records
+
+combine_household <- rbind(pActivity_HH_cube_DT, pActivity_strata_HH_cube_DT)
 
 
+#### ********************************* Fishing method processing ******************************* ####
+
+#country household involve in inshore fishing
+fishing_Country <- fishing %>%
+  filter(fishloc_inshore == 1) |>
+  group_by(countryCode, year, rururbCode) %>%
+  summarise(households = round(sum(hhwt), 0))
+
+pActivity_fish_loc_HH <- as.data.table(pActivity_fish_loc_HH)
+pActivity_fish_loc_HH_cube <- cube(pActivity_fish_loc_HH, j = round(sum(households), 2), by = c("countryCode", "year", "rururbCode"), id = FALSE )
+
+pActivity_fish_loc_HH_cube <- pActivity_fish_loc_HH_cube %>%
+  filter(!is.na(countryCode))
+
+pActivity_fish_loc_HH_cube <- pActivity_fish_loc_HH_cube %>%
+  filter(!is.na(year)) %>%
+  rename(households = V1)
+
+pActivity_fish_loc_HH_cube <- pActivity_fish_loc_HH_cube %>%
+  mutate_all(~replace(., is.na(.), "_T")) %>% 
+  filter(rururbCode != "N")
+
+pActivity_fish_loc_HH_cube_DT <- pActivity_fish_loc_HH_cube %>%
+  rename(GEO_PICT=countryCode, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households) %>%
+  mutate(FREQ = "A", INDICATOR = "NHH", FISHING_ACTIVITY = "_T", FISHING_LOCATION = "INSH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+
+#Strata household fishing location processing
+
+pActivity_fish_loc_strata_HH <- pActivity %>%
+  filter(fishloc_inshore == 1) |>
+  group_by(strataID, year, rururbCode) %>%
+  summarise(households = round(sum(hhwt), 0))
+
+pActivity_fish_loc_strata_HH <- as.data.table(pActivity_fish_loc_strata_HH)
+pActivity_fish_loc_strata_HH_cube <- cube(pActivity_fish_loc_strata_HH, j = round(sum(households), 2), by = c("strataID", "year", "rururbCode"), id = FALSE )
+
+pActivity_fish_loc_strata_HH_cube <- pActivity_fish_loc_strata_HH_cube %>%
+  filter(!is.na(strataID))
+
+pActivity_fish_loc_strata_HH_cube <- pActivity_fish_loc_strata_HH_cube %>%
+  filter(!is.na(year)) %>%
+  rename(households = V1)
+
+pActivity_fish_loc_strata_HH_cube <- pActivity_fish_loc_strata_HH_cube %>%
+  mutate_all(~replace(., is.na(.), "_T")) %>% 
+  filter(rururbCode != "N")
+
+pActivity_fish_loc_strata_HH_cube_DT <- pActivity_fish_loc_strata_HH_cube %>%
+  rename(GEO_PICT=strataID, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households) %>%
+  mutate(FREQ = "A", INDICATOR = "NHH", FISHING_ACTIVITY = "_T", FISHING_LOCATION = "INSH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+
+#combine inshore fishing location
+
+combine_inshore <- rbind(pActivity_fish_loc_HH_cube_DT, pActivity_fish_loc_strata_HH_cube_DT)
 
 
 

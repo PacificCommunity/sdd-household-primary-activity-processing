@@ -1,3 +1,14 @@
+#Load libraries
+library(readxl)
+library(openxlsx)
+library(dplyr)
+library(officer)
+library(lubridate)
+library(ggplot2)
+library(haven)
+library(data.table)
+library(RSQLite)
+
 #Directory path
 repository <- file.path(dirname(rstudioapi::getSourceEditorContext()$path))
 setwd(repository)
