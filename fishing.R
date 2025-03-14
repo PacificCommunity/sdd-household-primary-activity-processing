@@ -140,61 +140,118 @@ pActivity_strata_HH_cube_DT <- pActivity_strata_HH_cube %>%
 
 combine_household <- rbind(pActivity_HH_cube_DT, pActivity_strata_HH_cube_DT)
 
-
-#### ********************************* Fishing method processing ******************************* ####
-
 #country household involve in inshore fishing
-fishing_Country <- fishing %>%
-  filter(fishloc_inshore == 1) |>
-  group_by(countryCode, year, rururbCode) %>%
+fishing_Country <- fishing_loc %>%
+  #filter(fisheries == 1) |>
+  group_by(countryCode, year, rururbCode, fish) %>%
   summarise(households = round(sum(hhwt), 0))
 
-pActivity_fish_loc_HH <- as.data.table(pActivity_fish_loc_HH)
-pActivity_fish_loc_HH_cube <- cube(pActivity_fish_loc_HH, j = round(sum(households), 2), by = c("countryCode", "year", "rururbCode"), id = FALSE )
+fishing_Country <- as.data.table(fishing_Country)
+fishing_Country_cube <- cube(fishing_Country, j = round(sum(households), 2), by = c("countryCode", "year", "rururbCode", "fishing_location", "fishing_method"), id = FALSE )
 
-pActivity_fish_loc_HH_cube <- pActivity_fish_loc_HH_cube %>%
+fishing_Country_cube <- fishing_Country_cube %>%
   filter(!is.na(countryCode))
 
-pActivity_fish_loc_HH_cube <- pActivity_fish_loc_HH_cube %>%
+fishing_Country_cube <- fishing_Country_cube %>%
   filter(!is.na(year)) %>%
   rename(households = V1)
 
-pActivity_fish_loc_HH_cube <- pActivity_fish_loc_HH_cube %>%
+fishing_Country_cube <- fishing_Country_cube %>%
   mutate_all(~replace(., is.na(.), "_T")) %>% 
   filter(rururbCode != "N")
 
-pActivity_fish_loc_HH_cube_DT <- pActivity_fish_loc_HH_cube %>%
-  rename(GEO_PICT=countryCode, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households) %>%
-  mutate(FREQ = "A", INDICATOR = "NHH", FISHING_ACTIVITY = "_T", FISHING_LOCATION = "INSH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+fishing_Country_cube_DT <- fishing_Country_cube %>%
+  rename(GEO_PICT=countryCode, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households, FISHING_ACTIVITY = fishing_method, FISHING_LOCATION = fishing_location) %>%
+  mutate(FREQ = "A", INDICATOR = "NHH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
 
 #Strata household fishing location processing
 
-pActivity_fish_loc_strata_HH <- pActivity %>%
-  filter(fishloc_inshore == 1) |>
-  group_by(strataID, year, rururbCode) %>%
+fishing_strata <- fishing_loc %>%
+  filter(fisheries == 1) |>
+  group_by(strataID, year, rururbCode, fishing_location, fishing_method) %>%
   summarise(households = round(sum(hhwt), 0))
 
-pActivity_fish_loc_strata_HH <- as.data.table(pActivity_fish_loc_strata_HH)
-pActivity_fish_loc_strata_HH_cube <- cube(pActivity_fish_loc_strata_HH, j = round(sum(households), 2), by = c("strataID", "year", "rururbCode"), id = FALSE )
+fishing_strata <- as.data.table(fishing_strata)
+fishing_strata_cube <- cube(fishing_strata, j = round(sum(households), 2), by = c("strataID", "year", "rururbCode", "fishing_location", "fishing_method"), id = FALSE )
 
-pActivity_fish_loc_strata_HH_cube <- pActivity_fish_loc_strata_HH_cube %>%
+fishing_strata_cube <- fishing_strata_cube %>%
   filter(!is.na(strataID))
 
-pActivity_fish_loc_strata_HH_cube <- pActivity_fish_loc_strata_HH_cube %>%
+fishing_strata_cube <- fishing_strata_cube %>%
   filter(!is.na(year)) %>%
   rename(households = V1)
 
-pActivity_fish_loc_strata_HH_cube <- pActivity_fish_loc_strata_HH_cube %>%
+fishing_strata_cube <- fishing_strata_cube %>%
   mutate_all(~replace(., is.na(.), "_T")) %>% 
   filter(rururbCode != "N")
 
-pActivity_fish_loc_strata_HH_cube_DT <- pActivity_fish_loc_strata_HH_cube %>%
-  rename(GEO_PICT=strataID, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households) %>%
-  mutate(FREQ = "A", INDICATOR = "NHH", FISHING_ACTIVITY = "_T", FISHING_LOCATION = "INSH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+fishing_strata_cube_DT <- fishing_strata_cube %>%
+  rename(GEO_PICT=strataID, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households, FISHING_ACTIVITY = fishing_method, FISHING_LOCATION = fishing_location) %>%
+  mutate(FREQ = "A", INDICATOR = "NHH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
 
 #combine inshore fishing location
 
-combine_inshore <- rbind(pActivity_fish_loc_HH_cube_DT, pActivity_fish_loc_strata_HH_cube_DT)
+fishing_combine <- rbind(fishing_Country_cube_DT, fishing_strata_cube_DT)
+
+fishing_combine <- fishing_combine |>
+  select(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, INDICATOR, FISHING_ACTIVITY, FISHING_LOCATION, OBS_VALUE, UNIT_MEASURE, UNIT_MULT, OBS_STATUS, DATA_SOURCE, OBS_COMMENT, CONF_STATUS)
+
+
+#Calculate percentages
+
+combine_household_id <- combine_household 
+
+combine_household_id$OBS_VALUE <- as.numeric(combine_household_id$OBS_VALUE) 
+
+combine_household_id <- combine_household_id |>
+  group_by(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION) |>
+  summarise(totHH = sum(OBS_VALUE))
+
+
+fishing_combine_merge_hh <- merge(fishing_combine, combine_household_id)
+fishing_combine_merge_hh$OBS_VALUE <- as.numeric(fishing_combine_merge_hh$OBS_VALUE)
+
+fishing_combine_merge_hh$percentage <- round(fishing_combine_merge_hh$OBS_VALUE/fishing_combine_merge_hh$totHH*100, 2)
+
+fishing_combine_percent <- fishing_combine_merge_hh |>
+  select(-OBS_VALUE, -totHH) |>
+  rename(OBS_VALUE = percentage) |>
+  mutate(INDICATOR = "PERCENT",
+         UNIT_MEASURE = "PERCENT"
+         )
+
+fishing_combine_percent <- fishing_combine_percent |>
+  select(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, INDICATOR, FISHING_ACTIVITY, FISHING_LOCATION, OBS_VALUE, UNIT_MEASURE, UNIT_MULT, OBS_STATUS, DATA_SOURCE, OBS_COMMENT, CONF_STATUS)
+
+
+#Finalise Fishing dataset
+
+fishing_final <- rbind(fishing_combine, fishing_combine_percent)
+
+#Write final fishing file to csv file
+
+write.csv(fishing_final, "output/fisheries_data.csv", row.names = FALSE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
