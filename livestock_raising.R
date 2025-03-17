@@ -91,8 +91,32 @@ livestock_combine_DT <- livestock_combine %>%
 #Re-organise the columns in the proper order
 
 livestock_combine_DT <- livestock_combine_DT |>
-  select(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, SEX, AGE, LIVESTOCK_PIG, LIVESTOCK_CHICKEN, LIVESTOCK_DUCK, LIVESTOCK_OTHER, OBS_VALUE, UNIT_MEASURE, UNIT_MULT, OBS_STATUS, DATA_SOURCE, OBS_COMMENT, CONF_STATUS)
+  select(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, INDICATOR, SEX, AGE, LIVESTOCK_PIG, LIVESTOCK_CHICKEN, LIVESTOCK_DUCK, LIVESTOCK_OTHER, OBS_VALUE, UNIT_MEASURE, UNIT_MULT, OBS_STATUS, DATA_SOURCE, OBS_COMMENT, CONF_STATUS)
 
-#Write the results to output folder in a csv format
 
-write.csv(livestock_combine_DT, "output/livestock_raising.csv", row.names = FALSE)
+#### **************************** Calculate Percentage ************************************* ####
+
+source("households.R") #Get the number of households from the script 'households.R'
+
+combine_hh <- households(hhNum)
+
+livestock_percentage <- merge(livestock_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION"))
+livestock_percentage$percentage <- round(as.numeric(livestock_percentage$OBS_VALUE)/as.numeric(livestock_percentage$totHH) * 100, 2)
+
+#Rename percentage to OBS_VALUE
+
+livestock_percentage <- livestock_percentage |>
+  select(-OBS_VALUE, -totHH) |>
+  rename(OBS_VALUE = percentage) |>
+  mutate(INDICATOR = "PER",
+         UNIT_MEASURE = "PERCENT"
+  )
+
+#Combine count table and percent table
+
+livestock_final <- rbind(livestock_combine_DT, livestock_percentage)
+
+#Write the final fishing location table to csv file
+
+write.csv(livestock_final, "output/livestock_final.csv", row.names = FALSE)
+
