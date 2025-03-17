@@ -87,7 +87,6 @@ fishing_method_str_cube <- fishing_method_str_cube %>%
 #merge both the country and strata tables
 fishing_method_combine <- rbind(fishing_method_cube, fishing_method_str_cube)
 
-
 fishing_method_combine_DT <- fishing_method_combine %>%
   rename(OBS_VALUE = households) |>
   mutate(FREQ = "A", INDICATOR = "NHH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
@@ -95,8 +94,30 @@ fishing_method_combine_DT <- fishing_method_combine %>%
 #Re-organise the columns in the proper order
 
 fishing_method_combine_DT <- fishing_method_combine_DT |>
-  select(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, SEX, AGE, FISHING_GLEANING, FISHING_LINE, FISHING_NET, FISHING_SPEAR, FISHING_OTHER_METHOD, OBS_VALUE, UNIT_MEASURE, UNIT_MULT, OBS_STATUS, DATA_SOURCE, OBS_COMMENT, CONF_STATUS)
+  select(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, INDICATOR, SEX, AGE, FISHING_GLEANING, FISHING_LINE, FISHING_NET, FISHING_SPEAR, FISHING_OTHER_METHOD, OBS_VALUE, UNIT_MEASURE, UNIT_MULT, OBS_STATUS, DATA_SOURCE, OBS_COMMENT, CONF_STATUS)
 
-#Write the results to output folder in a csv format
+#### **************************** Calculate Percentage ************************************* ####
 
-write.csv(fishing_method_combine_DT, "output/fishing_method.csv", row.names = FALSE)
+source("households.R") #Get the number of households from the script 'households.R'
+
+combine_hh <- households(hhNum)
+
+fishing_method_percentage <- merge(fishing_method_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION"))
+fishing_method_percentage$percentage <- round(as.numeric(fishing_method_percentage$OBS_VALUE)/as.numeric(fishing_method_percentage$totHH) * 100, 2)
+
+#Rename percentage to OBS_VALUE
+
+fishing_method_percentage <- fishing_method_percentage |>
+  select(-OBS_VALUE, -totHH) |>
+  rename(OBS_VALUE = percentage) |>
+  mutate(INDICATOR = "PER",
+         UNIT_MEASURE = "PERCENT"
+  )
+
+#Combine count table and percent table
+
+fishing_method_final <- rbind(fishing_method_combine_DT, fishing_method_percentage)
+
+#Write the final fishing location table to csv file
+
+write.csv(fishing_method_final, "output/fishing_method_final.csv", row.names = FALSE)
