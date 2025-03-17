@@ -19,7 +19,7 @@ fishing_method <- fishing_method |>
 fishing_method <- fishing_method |>
   mutate(fishmethod_gleaning = ifelse(is.na(fishmethod_gleaning), "No", "Yes"),
          fishmethod_line = ifelse(is.na(fishmethod_line), "No", "Yes"),
-         fishmethod_net = ifelse(is.na(fishmethod_net), "No", "Year"),
+         fishmethod_net = ifelse(is.na(fishmethod_net), "No", "Yes"),
          fishmethod_spear = ifelse(is.na(fishmethod_spear), "Yes", "No"),
          fishmethod_other = ifelse(is.na(fishmethod_other), "Yes", "No")
   )
@@ -59,7 +59,7 @@ fishing_method_str <- fishing_method_str |>
 fishing_method_str <- fishing_method_str |>
   mutate(fishmethod_gleaning = ifelse(is.na(fishmethod_gleaning), "No", "Yes"),
          fishmethod_line = ifelse(is.na(fishmethod_line), "No", "Yes"),
-         fishmethod_net = ifelse(is.na(fishmethod_net), "No", "Year"),
+         fishmethod_net = ifelse(is.na(fishmethod_net), "No", "Yes"),
          fishmethod_spear = ifelse(is.na(fishmethod_spear), "Yes", "No"),
          fishmethod_other = ifelse(is.na(fishmethod_other), "Yes", "No")
   )

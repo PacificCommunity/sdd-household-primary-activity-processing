@@ -19,7 +19,7 @@ livestock <- livestock |>
 livestock <- livestock |>
   mutate(livestock_pig = ifelse(is.na(livestock_pig), "No", "Yes"),
          livestock_chicken = ifelse(is.na(livestock_chicken), "No", "Yes"),
-         livestock_duck = ifelse(is.na(livestock_duck), "No", "Year"),
+         livestock_duck = ifelse(is.na(livestock_duck), "No", "Yes"),
          livestock_other = ifelse(is.na(livestock_other), "Yes", "No")
   )
 
@@ -56,7 +56,7 @@ livestock_str <- livestock_str |>
 livestock_str <- livestock_str |>
   mutate(livestock_pig = ifelse(is.na(livestock_pig), "No", "Yes"),
          livestock_chicken = ifelse(is.na(livestock_chicken), "No", "Yes"),
-         livestock_duck = ifelse(is.na(livestock_duck), "No", "Year"),
+         livestock_duck = ifelse(is.na(livestock_duck), "No", "Yes"),
          livestock_other = ifelse(is.na(livestock_other), "Yes", "No")
   )
 
