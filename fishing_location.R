@@ -173,6 +173,10 @@ fishing_location_percentage <- fishing_location_percentage |>
 fishing_locaion_final <- rbind(fishing_combine_DT, fishing_location_percentage)
 
 
+#Write the final fishing location table to csv file
+
+write.csv(fishing_locaion_final, "output/fishing_location_final.csv", row.names = FALSE)
+
 
 
 
