@@ -17,10 +17,10 @@ livestock <- livestock |>
   summarise(totHH = round(sum(hhwt),0))
 
 livestock <- livestock |>
-  mutate(livestock_pig = ifelse(is.na(livestock_pig), "No", "Yes"),
-         livestock_chicken = ifelse(is.na(livestock_chicken), "No", "Yes"),
-         livestock_duck = ifelse(is.na(livestock_duck), "No", "Yes"),
-         livestock_other = ifelse(is.na(livestock_other), "Yes", "No")
+  mutate(livestock_pig = ifelse(is.na(livestock_pig), "NO", "YES"),
+         livestock_chicken = ifelse(is.na(livestock_chicken), "NO", "YES"),
+         livestock_duck = ifelse(is.na(livestock_duck), "NO", "YES"),
+         livestock_other = ifelse(is.na(livestock_other), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -54,10 +54,10 @@ livestock_str <- livestock_str |>
   summarise(totHH = round(sum(hhwt),0))
 
 livestock_str <- livestock_str |>
-  mutate(livestock_pig = ifelse(is.na(livestock_pig), "No", "Yes"),
-         livestock_chicken = ifelse(is.na(livestock_chicken), "No", "Yes"),
-         livestock_duck = ifelse(is.na(livestock_duck), "No", "Yes"),
-         livestock_other = ifelse(is.na(livestock_other), "Yes", "No")
+  mutate(livestock_pig = ifelse(is.na(livestock_pig), "NO", "YES"),
+         livestock_chicken = ifelse(is.na(livestock_chicken), "NO", "YES"),
+         livestock_duck = ifelse(is.na(livestock_duck), "NO", "YES"),
+         livestock_other = ifelse(is.na(livestock_other), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -108,7 +108,7 @@ livestock_percentage$percentage <- round(as.numeric(livestock_percentage$OBS_VAL
 livestock_percentage <- livestock_percentage |>
   select(-OBS_VALUE, -totHH) |>
   rename(OBS_VALUE = percentage) |>
-  mutate(INDICATOR = "PER",
+  mutate(INDICATOR = "PRPHH",
          UNIT_MEASURE = "PERCENT"
   )
 
@@ -116,7 +116,9 @@ livestock_percentage <- livestock_percentage |>
 
 livestock_final <- rbind(livestock_combine_DT, livestock_percentage)
 
-#Write the final fishing location table to csv file
+#Add the dataflow reference
+livestock_final <- livestock_final |> mutate(DATAFLOW = "SPC:DF_LIVESTOCK(1.0)")
 
+#Write the final fishing location table to csv file
 write.csv(livestock_final, "output/livestock_final.csv", row.names = FALSE)
 

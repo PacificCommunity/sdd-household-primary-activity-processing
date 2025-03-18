@@ -108,7 +108,7 @@ fishing_location_percentage$percentage <- round(as.numeric(fishing_location_perc
 fishing_location_percentage <- fishing_location_percentage |>
   select(-OBS_VALUE, -totHH) |>
   rename(OBS_VALUE = percentage) |>
-  mutate(INDICATOR = "PER",
+  mutate(INDICATOR = "PRPHH",
          UNIT_MEASURE = "PERCENT"
          )
 

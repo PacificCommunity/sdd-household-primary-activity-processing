@@ -107,7 +107,7 @@ agriculture_percentage$percentage <- round(as.numeric(agriculture_percentage$OBS
 agriculture_percentage <- agriculture_percentage |>
   select(-OBS_VALUE, -totHH) |>
   rename(OBS_VALUE = percentage) |>
-  mutate(INDICATOR = "PER",
+  mutate(INDICATOR = "PRPHH",
          UNIT_MEASURE = "PERCENT"
   )
 
