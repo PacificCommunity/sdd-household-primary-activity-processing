@@ -119,6 +119,10 @@ livestock_final <- rbind(livestock_combine_DT, livestock_percentage)
 #Add the dataflow reference
 livestock_final <- livestock_final |> mutate(DATAFLOW = "SPC:DF_LIVESTOCK(1.0)")
 
+#Remove duplicates
+livestock_final<- livestock_final |> distinct()
+
+
 #Write the final fishing location table to csv file
 write.csv(livestock_final, "output/livestock_final.csv", row.names = FALSE)
 
