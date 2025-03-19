@@ -102,7 +102,7 @@ source("households.R") #Get the number of households from the script 'households
 
 combine_hh <- households(hhNum)
 
-fishing_method_percentage <- merge(fishing_method_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION"))
+fishing_method_percentage <- merge(fishing_method_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
 fishing_method_percentage$percentage <- round(as.numeric(fishing_method_percentage$OBS_VALUE)/as.numeric(fishing_method_percentage$totHH) * 100, 2)
 
 #Rename percentage to OBS_VALUE

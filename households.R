@@ -60,7 +60,7 @@ households <- function(hhNum){
   combine_hh <- rbind(pActivity_HH_cube_DT, pActivity_HH_sn_cube_DT)
   
   combine_hh <- combine_hh |>
-    group_by(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION) |>
+    group_by(FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, SEX, AGE) |>
     summarise(totHH = sum(as.numeric(OBS_VALUE)))
   
   hhNum <-combine_hh
