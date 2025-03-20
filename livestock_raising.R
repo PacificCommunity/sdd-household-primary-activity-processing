@@ -120,6 +120,7 @@ livestock_final <- rbind(livestock_combine_DT, livestock_percentage)
 #Add the dataflow reference
 
 livestock_final <- livestock_final |> mutate(DATAFLOW = "SPC:DF_LIVESTOCK(1.0)")
+livestock_final <- livestock_final |> select(DATAFLOW, everything())
 
 #Remove duplicates
 livestock_final<- livestock_final |> distinct()

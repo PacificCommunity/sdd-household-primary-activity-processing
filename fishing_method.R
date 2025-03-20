@@ -118,6 +118,11 @@ fishing_method_percentage <- fishing_method_percentage |>
 
 fishing_method_final <- rbind(fishing_method_combine_DT, fishing_method_percentage)
 
+fishing_method_final <- fishing_method_final |>
+  mutate(DATAFLOW = "SPC:DF_FISHING_METHOD_HIES(1.0)") |>
+  select(DATAFLOW, everything()) |>
+  distinct()
+
 #Write the final fishing location table to csv file
 
 write.csv(fishing_method_final, "output/fishing_method_final.csv", row.names = FALSE)
