@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--NSI Web Service v8.19.6.0-->
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
+  <message:Header>
+    <message:ID>IDREF755</message:ID>
+    <message:Test>false</message:Test>
+    <message:Prepared>2025-03-20T02:47:35.4446488+00:00</message:Prepared>
+    <message:Sender id="Unknown"/>
+    <message:Receiver id="Unknown"/>
+  </message:Header>
+  <message:Structures>
+    <structure:Dataflows>
+      <structure:Dataflow id="DF_LIVESTOCK" agencyID="SPC" version="1.0" isFinal="false">
+        <common:Annotations>
+          <common:Annotation>
+			<common:AnnotationTitle>GEO_PICT, TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>ROW_SECTION</common:AnnotationType>
+		</common:Annotation>
+		<common:Annotation>
+			<common:AnnotationTitle>AGE</common:AnnotationTitle>
+			<common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+		</common:Annotation>
+		<common:Annotation>
+			<common:AnnotationTitle>SEX</common:AnnotationTitle>
+			<common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+		</common:Annotation>
+		<common:Annotation>
+			<common:AnnotationTitle>FREQ=A,URBANIZATION=_T,LIVESTOCK_PIG=_T,LIVESTOCK_CHICKEN=_T,LIVESTOCK_DUCK=_T, LIVESTOCK_OTHER=_T</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+		</common:Annotation>
+		<common:Annotation>
+			<common:AnnotationTitle>PDH.STAT</common:AnnotationTitle>
+			<common:AnnotationType>TAGS</common:AnnotationType>
+		</common:Annotation>
+		</common:Annotations>
+        <common:Name xml:lang="en">Food security: Number and proportion of households by geography, sex, age and urbanization in the Pacific who were involved in raising livestock</common:Name>
+        <common:Description xml:lang="en">This dataset provides numbers and proportions of households involved in primary activities (crop, livestock, fishing), by geography (1 sub-national level), sex, age and urbanization for the Pacific island countries, based on Household Income and Expenditure Surveys (HIES). The table has been compiled as a result of a collaborative project on food security between the Pacific Community (SPC) and the pacific island countries.</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_LIVESTOCK" version="1.0" agencyID="SPC" package="datastructure" class="DataStructure"/>
+        </structure:Structure>
+      </structure:Dataflow>
+    </structure:Dataflows>
+  </message:Structures>
+</message:Structure>
