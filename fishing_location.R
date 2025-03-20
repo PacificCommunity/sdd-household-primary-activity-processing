@@ -12,7 +12,7 @@ source("src/setup.R")
 fishing <- pActivity
 
 fishing <- fishing |>
-  filter(fisheries == 1 & countryCode != "VU") |>
+  #filter(fisheries == 1 & countryCode != "VU") |>
   group_by(countryCode, year, rururbCode, sexID, AGE, fishloc_inshore, fishloc_nearshore, fishloc_offshore, fishloc_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -49,7 +49,7 @@ fishing_cube <- fishing_cube %>%
 fishing_str <- pActivity
 
 fishing_str <- fishing_str |>
-  filter(fisheries == 1 & countryCode != "VU") |>
+  #filter(fisheries == 1 & countryCode != "VU") |>
   group_by(strataID, year, rururbCode, sexID, AGE, fishloc_inshore, fishloc_nearshore, fishloc_offshore, fishloc_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -101,7 +101,7 @@ combine_hh <- households(hhNum)
 
 
 fishing_location_percentage <- merge(fishing_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
-fishing_location_percentage$percentage <- round(as.numeric(fishing_location_percentage$OBS_VALUE)/as.numeric(fishing_location_percentage$totHH) * 100, 2)
+fishing_location_percentage$percentage <- round(as.numeric(fishing_location_percentage$OBS_VALUE)/as.numeric(fishing_location_percentage$totHH) * 100, 0)
 
 #Rename percentage to OBS_VALUE
 

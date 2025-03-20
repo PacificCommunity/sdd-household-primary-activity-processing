@@ -12,7 +12,7 @@ source("src/setup.R")
 livestock <- pActivity
 
 livestock <- livestock |>
-  filter(livestock == 1) |>
+  #filter(livestock == 1) |>
   group_by(countryCode, year, rururbCode, sexID, AGE, livestock_pig, livestock_chicken, livestock_duck, livestock_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -49,7 +49,7 @@ livestock_cube <- livestock_cube %>%
 livestock_str <- pActivity
 
 livestock_str <- livestock_str |>
-  filter(livestock == 1) |>
+  #filter(livestock == 1) |>
   group_by(strataID, year, rururbCode, sexID, AGE, livestock_pig, livestock_chicken, livestock_duck, livestock_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -101,7 +101,7 @@ source("households.R") #Get the number of households from the script 'households
 combine_hh <- households(hhNum)
 
 livestock_percentage <- merge(livestock_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
-livestock_percentage$percentage <- round(as.numeric(livestock_percentage$OBS_VALUE)/as.numeric(livestock_percentage$totHH) * 100, 2)
+livestock_percentage$percentage <- round(as.numeric(livestock_percentage$OBS_VALUE)/as.numeric(livestock_percentage$totHH) * 100, 0)
 
 #Rename percentage to OBS_VALUE
 
@@ -114,9 +114,11 @@ livestock_percentage <- livestock_percentage |>
 
 #Combine count table and percent table
 
+livestock_combine_DT$OBS_VALUE <- as.numeric(livestock_combine_DT$OBS_VALUE)
 livestock_final <- rbind(livestock_combine_DT, livestock_percentage)
 
 #Add the dataflow reference
+
 livestock_final <- livestock_final |> mutate(DATAFLOW = "SPC:DF_LIVESTOCK(1.0)")
 
 #Remove duplicates
