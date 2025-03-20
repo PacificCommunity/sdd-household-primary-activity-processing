@@ -86,7 +86,7 @@ fishing_combine <- rbind(fishing_cube, fishing_str_cube)
 
 fishing_combine_DT <- fishing_combine %>%
   rename(OBS_VALUE = households) |>
-  mutate(FREQ = "A", INDICATOR = "NHH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+  mutate(FREQ = "A", INDICATOR = "N", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
 
 #Re-organise the columns in the proper order
 
@@ -100,7 +100,7 @@ source("households.R") #Get the number of households from the script 'households
 combine_hh <- households(hhNum)
 
 
-fishing_location_percentage <- merge(fishing_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION"))
+fishing_location_percentage <- merge(fishing_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
 fishing_location_percentage$percentage <- round(as.numeric(fishing_location_percentage$OBS_VALUE)/as.numeric(fishing_location_percentage$totHH) * 100, 2)
 
 #Rename percentage to OBS_VALUE
@@ -108,7 +108,7 @@ fishing_location_percentage$percentage <- round(as.numeric(fishing_location_perc
 fishing_location_percentage <- fishing_location_percentage |>
   select(-OBS_VALUE, -totHH) |>
   rename(OBS_VALUE = percentage) |>
-  mutate(INDICATOR = "PRPHH",
+  mutate(INDICATOR = "PERCENT",
          UNIT_MEASURE = "PERCENT"
          )
 

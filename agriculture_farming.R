@@ -17,9 +17,9 @@ agriculture <- agriculture |>
   summarise(totHH = round(sum(hhwt),0))
 
 agriculture <- agriculture |>
-  mutate(agric_vege = ifelse(is.na(agric_vege), "No", "Yes"),
-         agric_tuber = ifelse(is.na(agric_tuber), "No", "Yes"),
-         agric_fruit = ifelse(is.na(agric_fruit), "No", "Yes")
+  mutate(agric_vege = ifelse(is.na(agric_vege), "NO", "YES"),
+         agric_tuber = ifelse(is.na(agric_tuber), "NO", "YES"),
+         agric_fruit = ifelse(is.na(agric_fruit), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -55,9 +55,9 @@ agriculture_str <- agriculture_str |>
   summarise(totHH = round(sum(hhwt),0))
 
 agriculture_str <- agriculture_str |>
-  mutate(agric_vege = ifelse(is.na(agric_vege), "No", "Yes"),
-         agric_tuber = ifelse(is.na(agric_tuber), "No", "Yes"),
-         agric_fruit = ifelse(is.na(agric_fruit), "No", "Yes")
+  mutate(agric_vege = ifelse(is.na(agric_vege), "NO", "YES"),
+         agric_tuber = ifelse(is.na(agric_tuber), "NO", "YES"),
+         agric_fruit = ifelse(is.na(agric_fruit), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -85,7 +85,7 @@ agriculture_combine <- rbind(agriculture_cube, agriculture_str_cube)
 
 agriculture_combine_DT <- agriculture_combine %>%
   rename(OBS_VALUE = households) |>
-  mutate(FREQ = "A", INDICATOR = "NHH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+  mutate(FREQ = "A", INDICATOR = "N", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
 
 #Re-organise the columns in the proper order
 
@@ -99,7 +99,7 @@ source("households.R") #Get the number of households from the script 'households
 
 combine_hh <- households(hhNum)
 
-agriculture_percentage <- merge(agriculture_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION"))
+agriculture_percentage <- merge(agriculture_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
 agriculture_percentage$percentage <- round(as.numeric(agriculture_percentage$OBS_VALUE)/as.numeric(agriculture_percentage$totHH) * 100, 2)
 
 #Rename percentage to OBS_VALUE
@@ -107,13 +107,16 @@ agriculture_percentage$percentage <- round(as.numeric(agriculture_percentage$OBS
 agriculture_percentage <- agriculture_percentage |>
   select(-OBS_VALUE, -totHH) |>
   rename(OBS_VALUE = percentage) |>
-  mutate(INDICATOR = "PRPHH",
+  mutate(INDICATOR = "PERCENT",
          UNIT_MEASURE = "PERCENT"
   )
 
 #Combine count table and percent table
 
 agriculture_final <- rbind(agriculture_combine_DT, agriculture_percentage)
+
+#Remove duplicates
+agriculture_final<- agriculture_final |> distinct()
 
 #Write the final fishing location table to csv file
 
