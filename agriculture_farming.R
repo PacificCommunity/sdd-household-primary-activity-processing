@@ -12,7 +12,7 @@ source("src/setup.R")
 agriculture <- pActivity
 
 agriculture <- agriculture |>
-  filter(agric == 1) |>
+  #filter(agric == 1) |>
   group_by(countryCode, year, rururbCode, sexID, AGE, agric_vege, agric_tuber, agric_fruit) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -50,7 +50,7 @@ agriculture_cube <- agriculture_cube %>%
 agriculture_str <- pActivity
 
 agriculture_str <- agriculture_str |>
-  filter(agric == 1) |>
+  #filter(agric == 1) |>
   group_by(strataID, year, rururbCode, sexID, AGE, agric_vege, agric_tuber, agric_fruit) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -100,7 +100,7 @@ source("households.R") #Get the number of households from the script 'households
 combine_hh <- households(hhNum)
 
 agriculture_percentage <- merge(agriculture_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
-agriculture_percentage$percentage <- round(as.numeric(agriculture_percentage$OBS_VALUE)/as.numeric(agriculture_percentage$totHH) * 100, 2)
+agriculture_percentage$percentage <- round(as.numeric(agriculture_percentage$OBS_VALUE)/as.numeric(agriculture_percentage$totHH) * 100, 0)
 
 #Rename percentage to OBS_VALUE
 
