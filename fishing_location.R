@@ -116,6 +116,10 @@ fishing_location_percentage <- fishing_location_percentage |>
 
 fishing_locaion_final <- rbind(fishing_combine_DT, fishing_location_percentage)
 
+fishing_locaion_final <- fishing_locaion_final |>
+  mutate(DATAFLOW = "") |>
+  select(DATAFLOW, everything()) |>
+  distinct()
 
 #Write the final fishing location table to csv file
 
