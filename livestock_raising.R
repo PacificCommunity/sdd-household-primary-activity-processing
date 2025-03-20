@@ -86,7 +86,7 @@ livestock_combine <- rbind(livestock_cube, livestock_str_cube)
 
 livestock_combine_DT <- livestock_combine %>%
   rename(OBS_VALUE = households) |>
-  mutate(FREQ = "A", INDICATOR = "NHH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+  mutate(FREQ = "A", INDICATOR = "N", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
 
 #Re-organise the columns in the proper order
 
@@ -100,7 +100,7 @@ source("households.R") #Get the number of households from the script 'households
 
 combine_hh <- households(hhNum)
 
-livestock_percentage <- merge(livestock_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION"))
+livestock_percentage <- merge(livestock_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
 livestock_percentage$percentage <- round(as.numeric(livestock_percentage$OBS_VALUE)/as.numeric(livestock_percentage$totHH) * 100, 2)
 
 #Rename percentage to OBS_VALUE
@@ -108,7 +108,7 @@ livestock_percentage$percentage <- round(as.numeric(livestock_percentage$OBS_VAL
 livestock_percentage <- livestock_percentage |>
   select(-OBS_VALUE, -totHH) |>
   rename(OBS_VALUE = percentage) |>
-  mutate(INDICATOR = "PRPHH",
+  mutate(INDICATOR = "PERCENT",
          UNIT_MEASURE = "PERCENT"
   )
 

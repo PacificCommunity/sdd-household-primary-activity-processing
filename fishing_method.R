@@ -89,7 +89,7 @@ fishing_method_combine <- rbind(fishing_method_cube, fishing_method_str_cube)
 
 fishing_method_combine_DT <- fishing_method_combine %>%
   rename(OBS_VALUE = households) |>
-  mutate(FREQ = "A", INDICATOR = "NHH", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+  mutate(FREQ = "A", INDICATOR = "N", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
 
 #Re-organise the columns in the proper order
 
@@ -110,7 +110,7 @@ fishing_method_percentage$percentage <- round(as.numeric(fishing_method_percenta
 fishing_method_percentage <- fishing_method_percentage |>
   select(-OBS_VALUE, -totHH) |>
   rename(OBS_VALUE = percentage) |>
-  mutate(INDICATOR = "PRPHH",
+  mutate(INDICATOR = "PERCENT",
          UNIT_MEASURE = "PERCENT"
   )
 

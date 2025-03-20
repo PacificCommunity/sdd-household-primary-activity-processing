@@ -30,7 +30,7 @@ households <- function(hhNum){
   
   pActivity_HH_cube_DT <- pActivity_HH_cube %>%
     rename(GEO_PICT=countryCode, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households, SEX = sexID) %>%
-    mutate(FREQ = "A", INDICATOR = "NHH", FOOD_ACTIVITY = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+    mutate(FREQ = "A", INDICATOR = "N", FOOD_ACTIVITY = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
   
   #Sub_national data processing
   
@@ -54,7 +54,7 @@ households <- function(hhNum){
   
   pActivity_HH_sn_cube_DT <- pActivity_HH_sn_cube %>%
     rename(GEO_PICT=strataID, TIME_PERIOD = year, URBANIZATION = rururbCode, OBS_VALUE = households, SEX = sexID) %>%
-    mutate(FREQ = "A", INDICATOR = "NHH", FOOD_ACTIVITY = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
+    mutate(FREQ = "A", INDICATOR = "N", FOOD_ACTIVITY = "_T", UNIT_MEASURE = "N", UNIT_MULT = "", OBS_STATUS = "", DATA_SOURCE = "", OBS_COMMENT = "", CONF_STATUS = "")
   
   
   combine_hh <- rbind(pActivity_HH_cube_DT, pActivity_HH_sn_cube_DT)
