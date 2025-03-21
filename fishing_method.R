@@ -125,7 +125,7 @@ fishing_method_final <- fishing_method_final |>
 
 #Write the final fishing location table to csv file
 
-write.csv(fishing_method_final, "output/fishing_method_final.csv", row.names = FALSE)
+write.csv(fishing_method_final, "output/fisheries/fishing_method_final.csv", row.names = FALSE)
 
 
 #### ************************* Generate metadata ************************************** ####
