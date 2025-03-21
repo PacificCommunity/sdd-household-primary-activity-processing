@@ -127,5 +127,43 @@ livestock_final<- livestock_final |> distinct()
 
 
 #Write the final fishing location table to csv file
-write.csv(livestock_final, "output/livestock_final.csv", row.names = FALSE)
+write.csv(livestock_final, "output/livestock/livestock_final_data.csv", row.names = FALSE)
 
+
+#### ************************* Generate metadata ************************************** ####
+
+livestock_final_metadata <- livestock_final 
+livestock_final_metadata$GEO <- substr(livestock_final_metadata$GEO_PICT, 1, 2) 
+
+livestock_final_metadata <- livestock_final_metadata |>
+  group_by(FREQ, TIME_PERIOD, GEO) |>
+  summarise(totcnt = n()
+    )
+
+livestock_final_metadata <- livestock_final_metadata |>
+  rename(GEO_PICT = GEO) |>
+  mutate(STRUCTURE = "dataflow",
+         STRUCTURE_ID = "SPC:DF_LIVESTOCK(1.0)",
+         ACTION = "R",
+         INDICATOR = "~",
+         URBANIZATION = "~",
+         SEX = "~",
+         AGE = "~",
+         LIVESTOCK_PIG = "~",
+         LIVESTOCK_CHICKEN = "~",
+         LIVESTOCK_DUCK = "~",
+         LIVESTOCK_OTHER = "~",
+         DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "",
+         DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
+         DATA_SOURCE.DATA_SOURCE_LICENSE = "",
+         DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD,
+         DATA_SOURCE.DATA_SOURCE_LINK = "",
+         DATA_SOURCE.DATA_SOURCE_COMMENT = "",
+         DATA_PROCESSING = "",
+         DATA_REVISION = "",
+         DATA_COMMENT = ""
+         
+         ) 
+  
+#Write the metadata table to a csv output file
+write.csv(livestock_final_metadata, "output/livestock/livestock_final_metadata.csv", row.names = FALSE)
