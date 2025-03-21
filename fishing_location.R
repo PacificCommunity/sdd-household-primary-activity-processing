@@ -125,3 +125,44 @@ fishing_locaion_final <- fishing_locaion_final |>
 
 write.csv(fishing_locaion_final, "output/fishing_location_final.csv", row.names = FALSE)
 
+
+#### ************************* Generate metadata ************************************** ####
+
+fishing_locaion_final_metadata <- fishing_locaion_final 
+fishing_locaion_final_metadata$GEO <- substr(fishing_locaion_final_metadata$GEO_PICT, 1, 2) 
+
+fishing_locaion_final_metadata <- fishing_locaion_final_metadata |>
+  group_by(FREQ, TIME_PERIOD, GEO) |>
+  summarise(totcnt = n()
+  )
+
+fishing_locaion_final_metadata <- fishing_locaion_final_metadata |>
+  rename(GEO_PICT = GEO) |>
+  mutate(STRUCTURE = "dataflow",
+         STRUCTURE_ID = "SPC:DF_AGRICULTURE_HIES(1.0)",
+         ACTION = "R",
+         INDICATOR = "~",
+         URBANIZATION = "~",
+         SEX = "~",
+         AGE = "~",
+         LIVESTOCK_PIG = "~",
+         LIVESTOCK_CHICKEN = "~",
+         LIVESTOCK_DUCK = "~",
+         LIVESTOCK_OTHER = "~",
+         DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "",
+         DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
+         DATA_SOURCE.DATA_SOURCE_LICENSE = "",
+         DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD,
+         DATA_SOURCE.DATA_SOURCE_LINK = "",
+         DATA_SOURCE.DATA_SOURCE_COMMENT = "",
+         DATA_PROCESSING = "",
+         DATA_REVISION = "",
+         DATA_COMMENT = ""
+         
+  ) 
+
+#Write the metadata table to a csv output file
+write.csv(fishing_locaion_final_metadata, "output/fisheries/fishing_locaion_final_metadata.csv", row.names = FALSE)
+
+
+
