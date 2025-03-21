@@ -13,9 +13,9 @@
       <structure:Dataflow id="DF_LIVESTOCK" agencyID="SPC" version="1.0" isFinal="false">
         <common:Annotations>
           <common:Annotation>
-			<common:AnnotationTitle>GEO_PICT, TIME_PERIOD</common:AnnotationTitle>
+			      <common:AnnotationTitle>GEO_PICT, TIME_PERIOD</common:AnnotationTitle>
             <common:AnnotationType>ROW_SECTION</common:AnnotationType>
-		</common:Annotation>
+		     </common:Annotation>
 		<common:Annotation>
 			<common:AnnotationTitle>AGE</common:AnnotationTitle>
 			<common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
