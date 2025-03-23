@@ -161,8 +161,16 @@ fishing_method_final_metadata <- fishing_method_final_metadata |>
          DATA_REVISION = "",
          DATA_COMMENT = ""
          
-  ) 
+  )
 
+#Re-organise the fileds in proper order
+fishing_method_final_metadata <- fishing_method_final_metadata |>
+  select(STRUCTURE, STRUCTURE_ID, ACTION, FREQ, TIME_PERIOD, GEO_PICT, INDICATOR, URBANIZATION, SEX, AGE,
+         LIVESTOCK_PIG, LIVESTOCK_CHICKEN, LIVESTOCK_DUCK, LIVESTOCK_OTHER, DATA_SOURCE.DATA_SOURCE_ORGANIZATION,
+         DATA_SOURCE.DATA_SOURCE_TITLE, DATA_SOURCE.DATA_SOURCE_LICENSE, DATA_SOURCE.DATA_SOURCE_DATE, DATA_SOURCE.DATA_SOURCE_LINK,
+         DATA_SOURCE.DATA_SOURCE_COMMENT, DATA_PROCESSING, DATA_REVISION, DATA_COMMENT
+         )
+  
 #Write the metadata table to a csv output file
 write.csv(fishing_method_final_metadata, "output/fisheries/fishing_method_final_metadata.csv", row.names = FALSE)
 

@@ -142,28 +142,22 @@ livestock_final_metadata <- livestock_final_metadata |>
 
 livestock_final_metadata <- livestock_final_metadata |>
   rename(GEO_PICT = GEO) |>
-  mutate(STRUCTURE = "dataflow",
-         STRUCTURE_ID = "SPC:DF_LIVESTOCK(1.0)",
-         ACTION = "R",
-         INDICATOR = "~",
-         URBANIZATION = "~",
-         SEX = "~",
-         AGE = "~",
-         LIVESTOCK_PIG = "~",
-         LIVESTOCK_CHICKEN = "~",
-         LIVESTOCK_DUCK = "~",
-         LIVESTOCK_OTHER = "~",
-         DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "",
-         DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
-         DATA_SOURCE.DATA_SOURCE_LICENSE = "",
-         DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD,
-         DATA_SOURCE.DATA_SOURCE_LINK = "",
-         DATA_SOURCE.DATA_SOURCE_COMMENT = "",
-         DATA_PROCESSING = "",
-         DATA_REVISION = "",
-         DATA_COMMENT = ""
+  mutate(STRUCTURE = "dataflow", STRUCTURE_ID = "SPC:DF_LIVESTOCK(1.0)", ACTION = "R", INDICATOR = "~",
+         URBANIZATION = "~", SEX = "~", AGE = "~", LIVESTOCK_PIG = "~", LIVESTOCK_CHICKEN = "~", LIVESTOCK_DUCK = "~",
+         LIVESTOCK_OTHER = "~", DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "", DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
+         DATA_SOURCE.DATA_SOURCE_LICENSE = "", DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD, DATA_SOURCE.DATA_SOURCE_LINK = "",
+         DATA_SOURCE.DATA_SOURCE_COMMENT = "", DATA_PROCESSING = "", DATA_REVISION = "", DATA_COMMENT = ""
          
-         ) 
+         )
+
+#Reorder the fields in the proper order
+
+livestock_final_metadata <- livestock_final_metadata |>
+  select(STRUCTURE, STRUCTURE_ID, ACTION, FREQ, TIME_PERIOD, GEO_PICT, URBANIZATION, INDICATOR, SEX, AGE,
+         LIVESTOCK_PIG, LIVESTOCK_CHICKEN, LIVESTOCK_DUCK, LIVESTOCK_OTHER, DATA_SOURCE.DATA_SOURCE_ORGANIZATION,
+         DATA_SOURCE.DATA_SOURCE_TITLE, DATA_SOURCE.DATA_SOURCE_LICENSE, DATA_SOURCE.DATA_SOURCE_DATE, DATA_SOURCE.DATA_SOURCE_LINK,
+         DATA_SOURCE.DATA_SOURCE_COMMENT, DATA_PROCESSING, DATA_REVISION, DATA_COMMENT
+         )
   
 #Write the metadata table to a csv output file
 write.csv(livestock_final_metadata, "output/livestock/livestock_final_metadata.csv", row.names = FALSE)

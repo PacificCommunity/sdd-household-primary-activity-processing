@@ -7,8 +7,8 @@ setwd(repository)
 source("src/setup.R")
 
 #Load data file
-pActivity <- read_dta("raw_data/SPC_REG-12_2012-2021_PRIMARY-ACTIVITIES.dta") %>%
-             mutate(across(where(labelled::is.labelled), haven::as_factor))
+#pActivity <- read_dta("raw_data/SPC_REG-12_2012-2021_PRIMARY-ACTIVITIES.dta") %>%
+#             mutate(across(where(labelled::is.labelled), haven::as_factor))
 
 #### ************************* Creating subsidiary tables to be merged with main table *********************************** ####
 
@@ -81,8 +81,7 @@ pActivity <- pActivity |>
                                )
   )
 
-pActivity <- merge(pActivity, rururb, by = "rururb")
-pActivity <- merge(pActivity, country, by = "country")
+#pActivity <- merge(pActivity, country, by = "country")
 
 #### ********************** Generate the total number of households *************************************************** ####
 

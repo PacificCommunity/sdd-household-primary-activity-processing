@@ -100,7 +100,7 @@ pActivity <- pActivity |>
 #Rural urban subtable
 rururb <- data.frame(
   rururbCode = c(1,2,3,99),
-  rururb = c("Rural", "Urban", "National", "Not Stated")
+  rururb = c("rural", "urban", "national", "not stated")
 )
 
 #Country subtable
