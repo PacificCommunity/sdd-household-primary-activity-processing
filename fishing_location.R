@@ -121,8 +121,12 @@ fishing_locaion_final <- fishing_locaion_final |>
   select(DATAFLOW, everything()) |>
   distinct()
 
-#Write the final fishing location table to csv file
+#Adding the dataflow column
+fishing_locaion_final <- fishing_locaion_final |> mutate(DATAFLOW = "SPC:DF_FISHING_LOCATION_HIES(1.0)")
+fishing_locaion_final <- fishing_locaion_final |> select(DATAFLOW, everything())
 
+
+#Write the final fishing location table to csv file
 write.csv(fishing_locaion_final, "output/fisheries/fishing_location_final.csv", row.names = FALSE)
 
 

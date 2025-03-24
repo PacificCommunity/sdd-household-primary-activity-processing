@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--NSI Web Service v8.19.6.0-->
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
+  <message:Header>
+    <message:ID>IDREF424</message:ID>
+    <message:Test>false</message:Test>
+    <message:Prepared>2025-03-24T03:28:29.0770425+00:00</message:Prepared>
+    <message:Sender id="Unknown" />
+    <message:Receiver id="Unknown" />
+  </message:Header>
+  <message:Structures>
+    <structure:Dataflows>
+      <structure:Dataflow id="DF_FISHING_LOCATION_HIES" agencyID="SPC" version="1.0" isFinal="false">
+        <common:Annotations>
+          <common:Annotation>
+			      <common:AnnotationTitle>GEO_PICT,TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>ROW_SECTION</common:AnnotationType>
+		     </common:Annotation>
+		     <common:Annotation>
+			      <common:AnnotationTitle>AGE</common:AnnotationTitle>
+			      <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+		    </common:Annotation>
+		    <common:Annotation>
+			      <common:AnnotationTitle>SEX</common:AnnotationTitle>
+			      <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+		    </common:Annotation>
+		    <common:Annotation>
+			      <common:AnnotationTitle>FREQ=A,URBANIZATION=_T,INDICATOR=N,FISHING_INSHORE=_T,FISHING_NEARSHORE=_T,FISHING_OFFSHORE=_T,FISHING_OTHER_LOCATION=_T</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+		    </common:Annotation>
+		    <common:Annotation>
+			      <common:AnnotationTitle>PDH.STAT</common:AnnotationTitle>
+			      <common:AnnotationType>TAGS</common:AnnotationType>
+			</common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Food security: Number and proportion of households by geography, sex, age and urbanization in the Pacific which were involved fishing in various fishing locations including (inshore, nearshore, offshore or any other locations)</common:Name>
+        <common:Description xml:lang="en">Data is collected the Household Income and Expenditure Surveys (HIES) contacted by the regional countries.</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_FISHING_LOCATION_HIES" version="1.0" agencyID="SPC" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+    </structure:Dataflows>
+  </message:Structures>
+</message:Structure>
