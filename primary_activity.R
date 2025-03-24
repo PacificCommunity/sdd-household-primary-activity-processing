@@ -646,4 +646,4 @@ household_primary_activity_overall <- household_primary_activity_overall |>
 
 
 #Write the final table to the output folder
-write.csv(household_primary_activity_overall, "output/household_primary_activity_overall.csv", row.names = FALSE)
+write.csv(household_primary_activity_overall, "output/primary_activity/household_primary_activity_overall.csv", row.names = FALSE)
