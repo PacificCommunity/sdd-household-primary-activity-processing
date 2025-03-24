@@ -123,7 +123,10 @@ fishing_locaion_final <- fishing_locaion_final |>
   distinct()
 
 #Adding the dataflow column
-fishing_locaion_final <- fishing_locaion_final |> mutate(DATAFLOW = "SPC:DF_FISHING_LOCATION_HIES(1.0)")
+fishing_locaion_final <- fishing_locaion_final |> 
+  mutate(DATAFLOW = "SPC:DF_FISHING_LOCATION_HIES(1.0)",
+         DATA_SOURCE = paste0("Household Income and Expenditure Survey (HIES)",TIME_PERIOD)
+         )
 fishing_locaion_final <- fishing_locaion_final |> select(DATAFLOW, everything())
 
 

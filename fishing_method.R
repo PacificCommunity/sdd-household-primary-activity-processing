@@ -119,7 +119,9 @@ fishing_method_percentage <- fishing_method_percentage |>
 fishing_method_final <- rbind(fishing_method_combine_DT, fishing_method_percentage)
 
 fishing_method_final <- fishing_method_final |>
-  mutate(DATAFLOW = "SPC:DF_FISHING_METHOD_HIES(1.0)") |>
+  mutate(DATAFLOW = "SPC:DF_FISHING_METHOD_HIES(1.0)",
+         DATA_SOURCE = paste0("Household Income and Expenditure Survey (HIES)",TIME_PERIOD)
+         ) |>
   select(DATAFLOW, everything()) |>
   distinct()
 

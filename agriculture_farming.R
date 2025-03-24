@@ -114,7 +114,10 @@ agriculture_percentage <- agriculture_percentage |>
 #Combine count table and percent table
 agriculture_final <- rbind(agriculture_combine_DT, agriculture_percentage)
 
-agriculture_final <- agriculture_final |> mutate(DATAFLOW = "SPC:DF_AGRICULTURE_HIES(1.0)")
+agriculture_final <- agriculture_final |> 
+  mutate(DATAFLOW = "SPC:DF_AGRICULTURE_HIES(1.0)",
+         DATA_SOURCE = paste0("Household Income and Expenditure Survey (HIES)",TIME_PERIOD)
+         )
 agriculture_final <- agriculture_final |> select(DATAFLOW, everything())
 
 #Remove duplicates
