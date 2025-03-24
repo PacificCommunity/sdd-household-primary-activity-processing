@@ -17,11 +17,11 @@ fishing_method <- fishing_method |>
   summarise(totHH = round(sum(hhwt),0))
 
 fishing_method <- fishing_method |>
-  mutate(fishmethod_gleaning = ifelse(is.na(fishmethod_gleaning), "No", "Yes"),
-         fishmethod_line = ifelse(is.na(fishmethod_line), "No", "Yes"),
-         fishmethod_net = ifelse(is.na(fishmethod_net), "No", "Yes"),
-         fishmethod_spear = ifelse(is.na(fishmethod_spear), "Yes", "No"),
-         fishmethod_other = ifelse(is.na(fishmethod_other), "Yes", "No")
+  mutate(fishmethod_gleaning = ifelse(is.na(fishmethod_gleaning), "NO", "YES"),
+         fishmethod_line = ifelse(is.na(fishmethod_line), "NO", "YES"),
+         fishmethod_net = ifelse(is.na(fishmethod_net), "NO", "YES"),
+         fishmethod_spear = ifelse(is.na(fishmethod_spear), "NO", "YES"),
+         fishmethod_other = ifelse(is.na(fishmethod_other), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -57,11 +57,11 @@ fishing_method_str <- fishing_method_str |>
   summarise(totHH = round(sum(hhwt),0))
 
 fishing_method_str <- fishing_method_str |>
-  mutate(fishmethod_gleaning = ifelse(is.na(fishmethod_gleaning), "No", "Yes"),
-         fishmethod_line = ifelse(is.na(fishmethod_line), "No", "Yes"),
-         fishmethod_net = ifelse(is.na(fishmethod_net), "No", "Yes"),
-         fishmethod_spear = ifelse(is.na(fishmethod_spear), "Yes", "No"),
-         fishmethod_other = ifelse(is.na(fishmethod_other), "Yes", "No")
+  mutate(fishmethod_gleaning = ifelse(is.na(fishmethod_gleaning), "NO", "YES"),
+         fishmethod_line = ifelse(is.na(fishmethod_line), "NO", "YES"),
+         fishmethod_net = ifelse(is.na(fishmethod_net), "NO", "YES"),
+         fishmethod_spear = ifelse(is.na(fishmethod_spear), "NO", "YES"),
+         fishmethod_other = ifelse(is.na(fishmethod_other), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -140,25 +140,11 @@ fishing_method_final_metadata <- fishing_method_final_metadata |>
 
 fishing_method_final_metadata <- fishing_method_final_metadata |>
   rename(GEO_PICT = GEO) |>
-  mutate(STRUCTURE = "dataflow",
-         STRUCTURE_ID = "SPC:DF_AGRICULTURE_HIES(1.0)",
-         ACTION = "R",
-         INDICATOR = "~",
-         URBANIZATION = "~",
-         SEX = "~",
-         AGE = "~",
-         LIVESTOCK_PIG = "~",
-         LIVESTOCK_CHICKEN = "~",
-         LIVESTOCK_DUCK = "~",
-         LIVESTOCK_OTHER = "~",
-         DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "",
-         DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
-         DATA_SOURCE.DATA_SOURCE_LICENSE = "",
-         DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD,
-         DATA_SOURCE.DATA_SOURCE_LINK = "",
-         DATA_SOURCE.DATA_SOURCE_COMMENT = "",
-         DATA_PROCESSING = "",
-         DATA_REVISION = "",
+  mutate(STRUCTURE = "DATAFLOW", STRUCTURE_ID = "SPC:DF_FISHING_METHOD_HIES(1.0)", ACTION = "I", INDICATOR = "~",
+         URBANIZATION = "~", SEX = "~", AGE = "~", LIVESTOCK_PIG = "~", LIVESTOCK_CHICKEN = "~", LIVESTOCK_DUCK = "~",
+         LIVESTOCK_OTHER = "~", DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "", DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
+         DATA_SOURCE.DATA_SOURCE_LICENSE = "", DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD, DATA_SOURCE.DATA_SOURCE_LINK = "",
+         DATA_SOURCE.DATA_SOURCE_COMMENT = "", DATA_PROCESSING = "", DATA_REVISION = "",
          DATA_COMMENT = ""
          
   )
