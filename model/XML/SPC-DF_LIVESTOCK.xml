@@ -13,7 +13,7 @@
       <structure:Dataflow id="DF_LIVESTOCK" agencyID="SPC" version="1.0" isFinal="false">
         <common:Annotations>
           <common:Annotation>
-			      <common:AnnotationTitle>GEO_PICT, TIME_PERIOD</common:AnnotationTitle>
+			      <common:AnnotationTitle>GEO_PICT,TIME_PERIOD</common:AnnotationTitle>
             <common:AnnotationType>ROW_SECTION</common:AnnotationType>
 		     </common:Annotation>
 		<common:Annotation>
@@ -25,7 +25,7 @@
 			<common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
 		</common:Annotation>
 		<common:Annotation>
-			<common:AnnotationTitle>FREQ=A,URBANIZATION=_T,LIVESTOCK_PIG=_T,LIVESTOCK_CHICKEN=_T,LIVESTOCK_DUCK=_T, LIVESTOCK_OTHER=_T</common:AnnotationTitle>
+			<common:AnnotationTitle>FREQ=A,URBANIZATION=_T,LIVESTOCK_PIG=_T,LIVESTOCK_CHICKEN=_T,LIVESTOCK_DUCK=_T,LIVESTOCK_OTHER=_T</common:AnnotationTitle>
             <common:AnnotationType>DEFAULT</common:AnnotationType>
 		</common:Annotation>
 		<common:Annotation>

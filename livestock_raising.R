@@ -142,7 +142,7 @@ livestock_final_metadata <- livestock_final_metadata |>
 
 livestock_final_metadata <- livestock_final_metadata |>
   rename(GEO_PICT = GEO) |>
-  mutate(STRUCTURE = "dataflow", STRUCTURE_ID = "SPC:DF_LIVESTOCK(1.0)", ACTION = "R", INDICATOR = "~",
+  mutate(STRUCTURE = "DATAFLOW", STRUCTURE_ID = "SPC:DF_LIVESTOCK(1.0)", ACTION = "I", INDICATOR = "~",
          URBANIZATION = "~", SEX = "~", AGE = "~", LIVESTOCK_PIG = "~", LIVESTOCK_CHICKEN = "~", LIVESTOCK_DUCK = "~",
          LIVESTOCK_OTHER = "~", DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "", DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
          DATA_SOURCE.DATA_SOURCE_LICENSE = "", DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD, DATA_SOURCE.DATA_SOURCE_LINK = "",

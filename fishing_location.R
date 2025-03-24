@@ -17,10 +17,10 @@ fishing <- fishing |>
   summarise(totHH = round(sum(hhwt),0))
 
 fishing <- fishing |>
-  mutate(fishloc_inshore = ifelse(is.na(fishloc_inshore), "No", "Yes"),
-         fishloc_nearshore = ifelse(is.na(fishloc_nearshore), "No", "Yes"),
-         fishloc_offshore = ifelse(is.na(fishloc_offshore), "No", "Yes"),
-         fishloc_other = ifelse(is.na(fishloc_other), "Yes", "No")
+  mutate(fishloc_inshore = ifelse(is.na(fishloc_inshore), "NO", "YES"),
+         fishloc_nearshore = ifelse(is.na(fishloc_nearshore), "NO", "YES"),
+         fishloc_offshore = ifelse(is.na(fishloc_offshore), "NO", "YES"),
+         fishloc_other = ifelse(is.na(fishloc_other), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -44,7 +44,7 @@ fishing_cube <- fishing_cube %>%
   )
 
 
-#Process the strata tabale
+#Process the strata table
 
 fishing_str <- pActivity
 
@@ -54,10 +54,10 @@ fishing_str <- fishing_str |>
   summarise(totHH = round(sum(hhwt),0))
 
 fishing_str <- fishing_str |>
-  mutate(fishloc_inshore = ifelse(is.na(fishloc_inshore), "No", "Yes"),
-         fishloc_nearshore = ifelse(is.na(fishloc_nearshore), "No", "Yes"),
-         fishloc_offshore = ifelse(is.na(fishloc_offshore), "No", "Yes"),
-         fishloc_other = ifelse(is.na(fishloc_other), "Yes", "No")
+  mutate(fishloc_inshore = ifelse(is.na(fishloc_inshore), "NO", "YES"),
+         fishloc_nearshore = ifelse(is.na(fishloc_nearshore), "NO", "YES"),
+         fishloc_offshore = ifelse(is.na(fishloc_offshore), "NO", "YES"),
+         fishloc_other = ifelse(is.na(fishloc_other), "NO", "YES")
   )
 
 #convert table to datatable format
@@ -138,31 +138,20 @@ fishing_locaion_final_metadata <- fishing_locaion_final_metadata |>
 
 fishing_locaion_final_metadata <- fishing_locaion_final_metadata |>
   rename(GEO_PICT = GEO) |>
-  mutate(STRUCTURE = "dataflow",
-         STRUCTURE_ID = "SPC:DF_AGRICULTURE_HIES(1.0)",
-         ACTION = "R",
-         INDICATOR = "~",
-         URBANIZATION = "~",
-         SEX = "~",
-         AGE = "~",
-         LIVESTOCK_PIG = "~",
-         LIVESTOCK_CHICKEN = "~",
-         LIVESTOCK_DUCK = "~",
-         LIVESTOCK_OTHER = "~",
-         DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "",
-         DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
-         DATA_SOURCE.DATA_SOURCE_LICENSE = "",
-         DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD,
-         DATA_SOURCE.DATA_SOURCE_LINK = "",
-         DATA_SOURCE.DATA_SOURCE_COMMENT = "",
-         DATA_PROCESSING = "",
-         DATA_REVISION = "",
-         DATA_COMMENT = ""
-         
-  ) 
+  mutate(STRUCTURE = "DATAFLOW", STRUCTURE_ID = "SPC:DF_FISHING_LOCATION_HIES(1.0)", ACTION = "I", INDICATOR = "~",
+         URBANIZATION = "~", SEX = "~", AGE = "~", FISHING_INSHORE = "~", FISHING_NEARSHORE = "~", FISHING_OFFSHORE = "~",
+         FISHING_OTHER_LOCATION = "~", DATA_SOURCE.DATA_SOURCE_ORGANIZATION = "", DATA_SOURCE.DATA_SOURCE_TITLE = "Household Income and Expenditure Survey",
+         DATA_SOURCE.DATA_SOURCE_LICENSE = "", DATA_SOURCE.DATA_SOURCE_DATE = TIME_PERIOD, DATA_SOURCE.DATA_SOURCE_LINK = "",
+         DATA_SOURCE.DATA_SOURCE_COMMENT = "", DATA_PROCESSING = "", DATA_REVISION = "", DATA_COMMENT = ""
+  )
+
+#Reorder the columns in the proper order
+fishing_locaion_final_metadata <- fishing_locaion_final_metadata |>
+  select(STRUCTURE, STRUCTURE_ID, ACTION, FREQ, GEO_PICT, URBANIZATION, INDICATOR, SEX, AGE, FISHING_INSHORE,
+         FISHING_NEARSHORE, FISHING_OFFSHORE, FISHING_OTHER_LOCATION, DATA_SOURCE.DATA_SOURCE_ORGANIZATION,
+         DATA_SOURCE.DATA_SOURCE_TITLE, DATA_SOURCE.DATA_SOURCE_LICENSE, DATA_SOURCE.DATA_SOURCE_DATE, DATA_SOURCE.DATA_SOURCE_LINK,
+         DATA_SOURCE.DATA_SOURCE_COMMENT, DATA_PROCESSING, DATA_REVISION, DATA_COMMENT
+         )
 
 #Write the metadata table to a csv output file
 write.csv(fishing_locaion_final_metadata, "output/fisheries/fishing_locaion_final_metadata.csv", row.names = FALSE)
-
-
-
