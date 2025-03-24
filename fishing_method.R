@@ -12,7 +12,7 @@ source("src/setup.R")
 fishing_method <- pActivity
 
 fishing_method <- fishing_method |>
-  #filter(fisheries == 1) |>
+  filter(fisheries == 1) |>
   group_by(countryCode, year, rururbCode, sexID, AGE, fishmethod_gleaning, fishmethod_line, fishmethod_net, fishmethod_spear, fishmethod_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -52,7 +52,7 @@ fishing_method_cube <- fishing_method_cube %>%
 fishing_method_str <- pActivity
 
 fishing_method_str <- fishing_method_str |>
-  #filter(fisheries == 1) |>
+  filter(fisheries == 1) |>
   group_by(strataID, year, rururbCode, sexID, AGE, fishmethod_gleaning, fishmethod_line, fishmethod_net, fishmethod_spear, fishmethod_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -159,7 +159,3 @@ fishing_method_final_metadata <- fishing_method_final_metadata |>
   
 #Write the metadata table to a csv output file
 write.csv(fishing_method_final_metadata, "output/fisheries/fishing_method_final_metadata.csv", row.names = FALSE)
-
-
-
-

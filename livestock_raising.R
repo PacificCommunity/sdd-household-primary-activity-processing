@@ -12,7 +12,7 @@ source("src/setup.R")
 livestock <- pActivity
 
 livestock <- livestock |>
-  #filter(livestock == 1) |>
+  filter(livestock == 1) |>
   group_by(countryCode, year, rururbCode, sexID, AGE, livestock_pig, livestock_chicken, livestock_duck, livestock_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -49,7 +49,7 @@ livestock_cube <- livestock_cube %>%
 livestock_str <- pActivity
 
 livestock_str <- livestock_str |>
-  #filter(livestock == 1) |>
+  filter(livestock == 1) |>
   group_by(strataID, year, rururbCode, sexID, AGE, livestock_pig, livestock_chicken, livestock_duck, livestock_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
