@@ -8,6 +8,7 @@ library(ggplot2)
 library(haven)
 library(data.table)
 library(RSQLite)
+library(stringr)
 
 #Directory path
 repository <- file.path(dirname(rstudioapi::getSourceEditorContext()$path))

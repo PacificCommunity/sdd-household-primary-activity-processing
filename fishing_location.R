@@ -12,7 +12,7 @@ source("src/setup.R")
 fishing <- pActivity
 
 fishing <- fishing |>
-  #filter(fisheries == 1 & countryCode != "VU") |>
+  filter(fisheries == 1 & countryCode != "VU") |>
   group_by(countryCode, year, rururbCode, sexID, AGE, fishloc_inshore, fishloc_nearshore, fishloc_offshore, fishloc_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -49,7 +49,7 @@ fishing_cube <- fishing_cube %>%
 fishing_str <- pActivity
 
 fishing_str <- fishing_str |>
-  #filter(fisheries == 1 & countryCode != "VU") |>
+  filter(fisheries == 1 & countryCode != "VU") |>
   group_by(strataID, year, rururbCode, sexID, AGE, fishloc_inshore, fishloc_nearshore, fishloc_offshore, fishloc_other) |>
   summarise(totHH = round(sum(hhwt),0))
 
@@ -98,6 +98,7 @@ fishing_combine_DT <- fishing_combine_DT |>
 source("households.R") #Get the number of households from the script 'households.R'
 
 combine_hh <- households(hhNum)
+combine_hh <- combine_hh |> filter(!str_starts(GEO_PICT, "VU"))
 
 
 fishing_location_percentage <- merge(fishing_combine_DT, combine_hh, by = c("FREQ", "TIME_PERIOD", "GEO_PICT", "URBANIZATION", "SEX", "AGE"))
