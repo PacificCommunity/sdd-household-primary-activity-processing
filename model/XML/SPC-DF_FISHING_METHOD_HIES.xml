@@ -17,15 +17,15 @@
             <common:AnnotationText xml:lang="en">true</common:AnnotationText>
           </common:Annotation>
           <common:Annotation>
-			      <common:AnnotationTitle>GEO_PICT,TIME_PERIOD</common:AnnotationTitle>
+			      <common:AnnotationTitle>INDICATOR</common:AnnotationTitle>
             <common:AnnotationType>ROW_SECTION</common:AnnotationType>
 		      </common:Annotation>
 		      <common:Annotation>
-			      <common:AnnotationTitle>AGE</common:AnnotationTitle>
+			      <common:AnnotationTitle>AGE,SEX</common:AnnotationTitle>
 			      <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
 		      </common:Annotation>
 		      <common:Annotation>
-			      <common:AnnotationTitle>SEX</common:AnnotationTitle>
+			      <common:AnnotationTitle>GEO_PICT,TIME_PERIOD</common:AnnotationTitle>
 			      <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
 		      </common:Annotation>
 		      <common:Annotation>
