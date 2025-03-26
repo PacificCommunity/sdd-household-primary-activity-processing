@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--NSI Web Service v8.19.6.0-->
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
+  <message:Header>
+    <message:ID>IDREF91717</message:ID>
+    <message:Test>false</message:Test>
+    <message:Prepared>2025-03-26T04:25:20.0853026+00:00</message:Prepared>
+    <message:Sender id="Unknown" />
+    <message:Receiver id="Unknown" />
+  </message:Header>
+  <message:Structures>
+    <structure:Dataflows>
+      <structure:Dataflow id="DF_FOOD_SECURITY_HIES_2" agencyID="SPC" version="1.0" isFinal="false">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationType>ROW_SECTION</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>FOOD_ACTIVITY,POVERTY</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>GEO_PICT,TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>FREQ=A,INDICATOR=PRPHH,SEX=_T,AGE=_T,URBANIZATION=_T,FOOD_SECURITY=_T,FOOD_ACTIVITY=CROP+LIVE+FISH+HAND+_T</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>PDH.STAT,SOCIAL,SEX,AGE,URBANIZATION,POVERTY,FOOD SECURITY</common:AnnotationTitle>
+            <common:AnnotationType>TAGS</common:AnnotationType>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Food security: Number and proportion of households by poverty, food security status and food activity, by geography, sex, age and urbanization from the Pacific island countries</common:Name>
+        <common:Name xml:lang="fr">Sécurité alimentaire : Nombre et proportion de ménages par état de pauvreté, état de sécurité alimentaire et activité alimentaire, par géographie, sexe, âge et urbanisation dans les pays du Pacifique</common:Name>
+        <common:Description xml:lang="en">This dataset provides numbers and proportions of households involved in primary activities (livestock, fishing, handicraft), by geography (1 sub-national level), sex, age and urbanization, poverty status (2 categories) and food security status (2 categories) for Pacific island countries based on Household Income and Expenditure Surveys (HIES). The table has been compiled as a result of a collaborative project on food security between the Pacific Community (SPC) and the Food and Agriculture Organization of the United Nations (FAO).</common:Description>
+        <common:Description xml:lang="fr">Ce jeu de données fournit les nombres et les proportions de ménages engagés dans des activités primaires (élevage, pêche, artisanat) par géographie (1 niveau infranational), sexe, âge et urbanisation, état de pauvreté (2 catégories) et état de la sécurité alimentaire (2 catégories) pour les pays du Pacifique basés sur les enquêtes sur les revenus et les dépenses des ménages (HIES). La table a été compilée à la suite d'un projet de collaboration sur la sécurité alimentaire entre la Communauté du Pacifique (CPS) et l'Organisation des Nations Unies pour l'alimentation et l'agriculture (FAO).</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_FOOD_SECURITY_HIES_2" version="1.0" agencyID="SPC" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+    </structure:Dataflows>
+  </message:Structures>
+</message:Structure>
